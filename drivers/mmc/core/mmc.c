@@ -29,6 +29,9 @@
 #define DEFAULT_CMD6_TIMEOUT_MS	500
 #define MIN_CACHE_EN_TIMEOUT_MS 1600
 
+#define HS_TIMING_ONLY
+
+
 static const unsigned int tran_exp[] = {
 	10000,		100000,		1000000,	10000000,
 	0,		0,		0,		0
@@ -1304,6 +1307,7 @@ out_err:
 	return err;
 }
 
+#ifndef HS_TIMING_ONLY
 static void mmc_select_driver_type(struct mmc_card *card)
 {
 	int card_drv_type, drive_strength, drv_type = 0;
@@ -1489,6 +1493,7 @@ err:
 	}
 	return err;
 }
+#endif
 
 /*
  * Activate High Speed, HS200 or HS400ES mode if supported.
@@ -1500,11 +1505,13 @@ static int mmc_select_timing(struct mmc_card *card)
 	if (!mmc_can_ext_csd(card))
 		goto bus_speed;
 
+#ifndef HS_TIMING_ONLY
 	if (card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS400ES)
 		err = mmc_select_hs400es(card);
 	else if (card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS200)
 		err = mmc_select_hs200(card);
 	else if (card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS)
+#endif
 		err = mmc_select_hs(card);
 
 	if (err && err != -EBADMSG)

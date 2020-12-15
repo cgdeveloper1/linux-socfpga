@@ -1,0 +1,126 @@
+/* 
+ * The MIT License (MIT) 
+ * Copyright (c) 2017 Intel Corporation 
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy 
+ * of this software and associated documentation files (the "Software"), to deal 
+ * in the Software without restriction, including without limitation the rights 
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+ * copies of the Software, and to permit persons to whom the Software is 
+ * furnished to do so, subject to the following conditions: 
+ * 
+ * The above copyright notice and this permission notice shall be included in 
+ * all copies or substantial portions of the Software. 
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+ * SOFTWARE. 
+ */ 
+ 
+#include "soc_system.h" 
+#include "dt-bindings/interrupt-controller/irq.h" 
+ 
+/* 
+ * Redefine the macros from soc_system.h into shorter macros and more useful 
+ * values that we can use directly in the devicetree definition. 
+ */
+
+#define CDNS_SD4HC_1_BASE       HPS_0_ARM_A9_1_CDNS_SD4HC_1_BASE 
+#define CDNS_SD4HC_1_SPAN       HPS_0_ARM_A9_1_CDNS_SD4HC_1_SPAN 
+#define CDNS_SD4HC_1_IRQ        45
+#define CDNS_SD4HC_2_BASE       HPS_0_ARM_A9_1_CDNS_SD4HC_2_BASE 
+#define CDNS_SD4HC_2_SPAN       HPS_0_ARM_A9_1_CDNS_SD4HC_2_SPAN 
+#define CDNS_SD4HC_2_IRQ        46
+#define CDNS_SD4HC_3_BASE       HPS_0_ARM_A9_1_CDNS_SD4HC_3_BASE 
+#define CDNS_SD4HC_3_SPAN       HPS_0_ARM_A9_1_CDNS_SD4HC_3_SPAN 
+#define CDNS_SD4HC_3_IRQ        47
+#define CDNS_SD4HC_4_BASE       HPS_0_ARM_A9_1_CDNS_SD4HC_4_BASE 
+#define CDNS_SD4HC_4_SPAN       HPS_0_ARM_A9_1_CDNS_SD4HC_4_SPAN 
+#define CDNS_SD4HC_4_IRQ        48
+ 
+/ { 
+soc { 
+ 
+    base-fpga-region {
+ 
+        external-fpga-config; 
+ 
+        #address-cells = <0x2>; 
+        #size-cells = <0x1>; 
+
+        ranges = < 
+                CDNS_SD4HC_1_BASE   0       CDNS_SD4HC_1_BASE   CDNS_SD4HC_1_SPAN 
+                CDNS_SD4HC_2_BASE   0       CDNS_SD4HC_2_BASE   CDNS_SD4HC_2_SPAN 
+                CDNS_SD4HC_3_BASE   0       CDNS_SD4HC_3_BASE   CDNS_SD4HC_3_SPAN 
+                CDNS_SD4HC_4_BASE   0       CDNS_SD4HC_4_BASE   CDNS_SD4HC_4_SPAN 
+                >; 
+ 
+        CDNS_SD4HC_1: CDNS_SD4HC_1@CDNS_SD4HC_1_BASE,0 { 
+                compatible = "cdns,sd4hc"; 
+                reg = <CDNS_SD4HC_1_BASE 0 CDNS_SD4HC_1_SPAN>; 
+                interrupt-parent = < &intc >;
+                interrupts = <0 CDNS_SD4HC_1_IRQ IRQ_TYPE_LEVEL_HIGH>; 
+                clocks = <&sdmmc_clk>;
+//                clocks = <&cdns_sd4hc_1_card_clk>;
+                bus-width = <8>;
+//                mmc-ddr-1_8v;
+//                mmc-hs200-1_8v;
+//                mmc-hs400-1_8v;
+//                cdns,phy-dll-delay-sdclk = <0>;
+                max-frequency = <5000000>;
+        }; 
+ 
+        CDNS_SD4HC_2: CDNS_SD4HC_1@CDNS_SD4HC_2_BASE,0 { 
+                compatible = "cdns,sd4hc"; 
+                reg = <CDNS_SD4HC_2_BASE 0 CDNS_SD4HC_2_SPAN>; 
+                interrupt-parent = < &intc >;
+                interrupts = <0 CDNS_SD4HC_2_IRQ IRQ_TYPE_LEVEL_HIGH>; 
+                clocks = <&sdmmc_clk>;
+//                clocks = <&cdns_sd4hc_1_card_clk>;
+                bus-width = <8>;
+//                mmc-ddr-1_8v;
+//                mmc-hs200-1_8v;
+//                mmc-hs400-1_8v;
+//                cdns,phy-dll-delay-sdclk = <0>;
+                max-frequency = <5000000>;
+        }; 
+ 
+        CDNS_SD4HC_3: CDNS_SD4HC_1@CDNS_SD4HC_3_BASE,0 { 
+                compatible = "cdns,sd4hc"; 
+                reg = <CDNS_SD4HC_3_BASE 0 CDNS_SD4HC_3_SPAN>; 
+                interrupt-parent = < &intc >;
+                interrupts = <0 CDNS_SD4HC_3_IRQ IRQ_TYPE_LEVEL_HIGH>; 
+                clocks = <&sdmmc_clk>;
+//                clocks = <&cdns_sd4hc_1_card_clk>;
+                bus-width = <8>;
+//                mmc-ddr-1_8v;
+//                mmc-hs200-1_8v;
+//                mmc-hs400-1_8v;
+//                cdns,phy-dll-delay-sdclk = <0>;
+                max-frequency = <5000000>;
+        }; 
+ 
+        CDNS_SD4HC_4: CDNS_SD4HC_1@CDNS_SD4HC_4_BASE,0 { 
+                compatible = "cdns,sd4hc"; 
+                reg = <CDNS_SD4HC_4_BASE 0 CDNS_SD4HC_4_SPAN>; 
+                interrupt-parent = < &intc >;
+                interrupts = <0 CDNS_SD4HC_4_IRQ IRQ_TYPE_LEVEL_HIGH>; 
+                clocks = <&sdmmc_clk>;
+//                clocks = <&cdns_sd4hc_1_card_clk>;
+                bus-width = <8>;
+//                mmc-ddr-1_8v;
+//                mmc-hs200-1_8v;
+//                mmc-hs400-1_8v;
+//                cdns,phy-dll-delay-sdclk = <0>;
+                max-frequency = <5000000>;
+        }; 
+ 
+
+    }; // external-fpga-config 
+ 
+}; // soc
+}; // / 
